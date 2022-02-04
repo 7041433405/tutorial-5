@@ -1,24 +1,24 @@
 var express = require('express');
 var router = express.Router();
-var Movie = require('./Models/Movie')
+var Pizza = require('./Models/Pizza')
 var User = require('./Models/User')
 var bcrypt = require('bcryptjs')
 var jwt = require('jsonwebtoken')
 
 //to fetch movies
 router.get('/movies',async(req,res)=>{
-    const imovie = await Movie.find()
-    res.send(imovie)
+    const ipizza = await Pizza.find()
+    res.send(ipizza)
 })
 
 //to add the movies
-router.post("/movies",async(req,res)=>{
-    const imovie = new Movie({
+router.post("/Pizza",async(req,res)=>{
+    const ipizza = new Pizza({
         name:req.body.name,
         rating:req.body.rating
     })
 
-    await imovie.save((err,msg)=>{
+    await ipizza.save((err,msg)=>{
         if(err){
             res.status(500).json({
                 "error":err
@@ -36,11 +36,11 @@ router.post("/movies",async(req,res)=>{
 
 // api for updating movie
 
-router.patch('/movies/:id',async (req,res)=>{
-    const imovie = await Movie.findOne({_id:req.params.id})
-    imovie.name = req.body.name
-    imovie.rating = req.body.rating
-    await imovie.save((err,msg)=>{
+router.patch('/Pizza/:id',async (req,res)=>{
+    const ipizza = await Movie.findOne({_id:req.params.id})
+    ipizza.name = req.body.name
+    ipizza.rating = req.body.rating
+    await ipizza.save((err,msg)=>{
         if(err){
             res.status(500).json({
                 error:err
@@ -57,8 +57,8 @@ router.patch('/movies/:id',async (req,res)=>{
 
 //delete api
 
-router.delete("/movies/:name",async(req,res)=>{
-    await Movie.deleteOne({name:req.params.name},(err,msg)=>{
+router.delete("/Pizza/:name",async(req,res)=>{
+    await Pizza.deleteOne({name:req.params.name},(err,msg)=>{
         if(err){
             res.status(500).json({
                 error:err
@@ -74,32 +74,32 @@ router.delete("/movies/:name",async(req,res)=>{
 })
 
 
-router.post('/users',async(req,res)=>{
+// // router.post('/users',async(req,res)=>{
     
-    //generate salt key
-    salt = await bcrypt.genSalt(10)
-    console.log(salt)
+//     //generate salt key
+//     salt = await bcrypt.genSalt(10)
+//     console.log(salt)
 
-    hashedpswd = await bcrypt.hash(req.body.password,salt)
-    console.log(hashedpswd)
+//     hashedpswd = await bcrypt.hash(req.body.password,salt)
+//     console.log(hashedpswd)
 
-    const iuser = new User({
-        uname:req.body.uname,
-        password:hashedpswd
-    })  
-    await iuser.save((err,msg)=>{
-        if(err){
-            res.status(500).json({
-                "error":err
-            })
-        }
-        else{
-            res.status(200).json({
-                "My-message":msg
-            })
-        }
-    })
+//     const iuser = new User({
+//         uname:req.body.uname,
+//         password:hashedpswd
+//     })  
+//     await iuser.save((err,msg)=>{
+//         if(err){
+//             res.status(500).json({
+//                 "error":err
+//             })
+//         }
+//         else{
+//             res.status(200).json({
+//                 "My-message":msg
+//             })
+//         }
+//     })
 
-})
+// })
 
 module.exports = router 
