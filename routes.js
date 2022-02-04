@@ -57,9 +57,9 @@ router.patch('/Pizza/:id',async (req,res)=>{
 
 //delete api
 
-router.delete('/algoStrategy/:id', async (request, response) => {   // delete by id
+router.delete('/Pizza/:id', async (request, response) => {   // delete by id
     const _id = request.params.id;
-    const strategy = await AlgoStrategy.findByIdAndDelete(_id);
+    const iPizza = await AlgoStrategy.findByIdAndDelete(_id);
     response.send(strategy);
 })
 
