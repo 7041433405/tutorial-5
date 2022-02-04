@@ -6,7 +6,7 @@ var bcrypt = require('bcryptjs')
 var jwt = require('jsonwebtoken')
 
 //to fetch movies
-router.get('/movies',async(req,res)=>{
+router.get('/Pizza',async(req,res)=>{
     const ipizza = await Pizza.find()
     res.send(ipizza)
 })
