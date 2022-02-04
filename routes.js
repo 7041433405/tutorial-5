@@ -57,20 +57,10 @@ router.patch('/Pizza/:id',async (req,res)=>{
 
 //delete api
 
-router.delete("/Pizza/:name",async(req,res)=>{
-    await Pizza.deleteOne({name:req.params.name},(err,msg)=>{
-        if(err){
-            res.status(500).json({
-                error:err
-            })
-        }
-        else{
-            res.status(200).json({
-                msg:msg
-            })
-        }
-
-    })
+router.delete('/algoStrategy/:id', async (request, response) => {   // delete by id
+    const _id = request.params.id;
+    const strategy = await AlgoStrategy.findByIdAndDelete(_id);
+    response.send(strategy);
 })
 
 
